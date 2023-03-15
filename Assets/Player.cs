@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            print("Jump");
+            transform.position += Vector3.up;
         }
     }
 }
