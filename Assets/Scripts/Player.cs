@@ -5,15 +5,18 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     public Rigidbody2D rb;
-    public int points;
-    public TMP_Text pointsText;
+    public int score;
+    public int highscore;
+    public TMP_Text highscoreText;
+    public TMP_Text scoreText;
     public Button restartButton;
     public float jumpSpeed;
 
     private void Start()
     {
-        points = 0;
-        pointsText.text = points.ToString();
+        score = 0;
+        scoreText.text = score.ToString();
+        highscoreText.text = "HIGHSCORE: " + highscore.ToString();
     }
 
     void Update()
@@ -29,8 +32,13 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Pipe"))
         {
-            points += 1;
-            pointsText.text = points.ToString();
+            score += 1;
+            if(score > highscore)
+            {
+                highscore = score;
+                highscoreText.text = "HIGHSCORE: " + highscore.ToString();
+            }
+            scoreText.text = score.ToString();
         }
     }
 
@@ -43,6 +51,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Death"))
         {
             restartButton.gameObject.SetActive(true);
+            highscoreText.gameObject.SetActive(true);
             Time.timeScale = 0;
         }
     }
